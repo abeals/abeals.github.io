@@ -80,6 +80,15 @@ $ pyenv versions
 <p>At first, the fonts didn't load. The rest of the CSS seemed to, so I assumed it was either a <code>@font-face</code> issue with Github Pages, or absolute/relative path problem. Stackoverflow searches turned up <a href="https://stackoverflow.com/questions/55339889/how-to-self-host-fonts-on-github-pages-website-fonts-not-loading">answers</a> <a href="https://stackoverflow.com/questions/35718750/adding-custom-fonts-to-github-pages">in</a> <a href="https://stackoverflow.com/questions/42008218/font-face-not-working-with-github-pages?noredirect=1&amp;lq=1">this</a> <a href="https://stackoverflow.com/questions/44172360/github-pages-font-face-not-working">vein</a>. However, the paths looked OK, and some CSS did load. Using Firefox's console, I saw 404s coming from 3 out of 6 CSS files in one directory. I confirmed that direct access of those CSS files returned 404s, even though the files were present and accessible in the repo through the normal Github UI.</p>
 <p>Then I hit on a comment that said sometimes Pages' Jekyll processing missed files in a directory starting with an underscore. I didn't have that problem -- as I mentioned, 3 of 6 files in the directory were accessible. But I thought maybe Jekyll needed a kick. So I tried adding a <code>.nojekyll</code> file to the root, which (a) would prevent that underscore issue for the future, and (b) kicked the Pages processing to re-eval the repo. Worked like a charm.</p>
 <p>Unfortunately, I don't know which one solved the problem: pushing a commit of any sort, or adding the <code>.nojekyll</code> file in particular. I'll try removing the file in an upcoming update and see what happens.</p>
+<h1>Current Janky Workflow</h1>
+<p>I'm writing in <a href="https://ia.net/writer">iA Writer</a>, then I have a private git repo in <a href="https://keybase.io">Keybase</a> for my source files, Pelican config, etc. </p>
+<p>Right now, I copy the files I want to publish from iA's default destination (iCloud, which was a pain in the neck to find on disk, compared to Dropbox) to the private git repo. Once the files are there, I regenerate and run the local Pelican server to test it out:</p>
+<div class="highlight"><pre><span></span><code>$ pelican ./content
+$ pelican --autoreload --listen
+</code></pre></div>
+
+<p>If everything looks good, I copy the contents of the output directory to my local copy of my Github Pages repo, commit, and push to origin.</p>
+<p>So that's two repos, a virtual environment, and a lot of copying. I can (and will) be streamlining the workflow. But it works.</p>
 <h1>Resources / Acknowledgements:</h1>
 <ul>
 <li><a href="https://duncanleung.com/set-up-python-pyenv-virtualenv-poetry/">https://duncanleung.com/set-up-python-pyenv-virtualenv-poetry/</a></li>

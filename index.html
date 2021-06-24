@@ -17,7 +17,39 @@
 
             <aside id="featured" class="body">
                 <article>
-                    <h1 class="entry-title"><a href="/pelican-pyenv-poetry-and-github-pages.html">Pelican, pyenv, Poetry, and (Github) Pages</a></h1>
+                    <h1 class="entry-title"><a href="/dependency-and-environment-management-in-python.html">Dependency and Environment Management in Python</a></h1>
+<footer class="post-info">
+        <abbr class="published" title="2021-06-24T06:15:00-04:00">
+                Published: Thu 24 June 2021
+        </abbr>
+
+        <address class="vcard author">
+                By                         <a class="url fn" href="/author/aaron-beals.html">Aaron Beals</a>
+        </address>
+<p>In <a href="/category/blog.html">Blog</a>.</p>
+
+</footer><!-- /.post-info --><p>People have a lot of opinions about dependency and environment management in Python.</p>
+<p>Python's been having a moment recently, as more tools are coming out to address problems people have had with <code>pip</code> and <code>virtualenv</code>.</p>
+<p>I'm not going to add my own two cents. This is more of a survey of what I've found and read.</p>
+<p>Here's a <a href="https://johnfraney.ca/posts/2019/03/06/pipenv-poetry-benchmarks-ergonomics/">two</a>-<a href="https://johnfraney.ca/posts/2019/11/19/pipenv-poetry-benchmarks-ergonomics-2/">part</a> analysis from early 2019 of Pipenv and Poetry, looking at speed and user experience (in the author's term, "Ergonomics").</p>
+<p>In late 2020, Jan Giacomelli did a <a href="https://testdriven.io/blog/python-environments/">writeup on the state of dependency and environment management</a>. I won't copy/paste it, but check out the table 2/3rds of the way down that post -- it's a helpful reference to determine what does what.</p>
+<p>Then, in early 2021, Frost Ming wrote a couple of pieces on <a href="https://pdm.fming.dev">Python Development Master, or PDM</a>, which they've written to capture the vision set out in <a href="https://www.python.org/dev/peps/pep-0582/">PEP 582</a>. First, read <a href="https://dev.to/frostming/you-don-t-really-need-a-virtualenv-4bae">"You don't really need a virtualenv"</a> which outlines some of the issues with virtual environments that PDM set out to solve. Next, read <a href="https://frostming.com/2021/03-26/pm-review-2021/">"A Review: Pipenv vs. Poetry vs. PDM"</a> which is PDM-biased (not surprising, given the author). However, Frost Ming claims in the earlier piece to be a maintainer/contributor to pipenv, so they certainly speak from a position of experience.</p>
+<p>After I posted one of the above in a work Slack channel, <a href="https://thraxil.org">Anders</a> replied with <a href="https://www.youtube.com/watch?v=j8iXO5VErjw">a talk from PyConUS 2021</a>, in which Jeremy Paige talks about the history and state of Python packaging.</p>
+<h1>What I'm doing</h1>
+<p>I used to use <code>venv + pip</code> (technically <code>virtualenv</code> but that was before <code>venv</code> shipped with Python), and have recently adopted <code>pyenv</code> and Poetry. I'll stick with those for a while until I get a chance to play around with PDM.</p>                </article>
+            </aside><!-- /#featured -->
+                <section id="content" class="body">
+                    <h1>Other articles</h1>
+                    <hr />
+                    <ol id="posts-list" class="hfeed">
+
+            <li><article class="hentry">
+                <header>
+                    <h1><a href="/pelican-pyenv-poetry-and-github-pages.html" rel="bookmark"
+                           title="Permalink to Pelican, pyenv, Poetry, and (Github) Pages">Pelican, pyenv, Poetry, and (Github) Pages</a></h1>
+                </header>
+
+                <div class="entry-content">
 <footer class="post-info">
         <abbr class="published" title="2021-06-23T08:38:00-04:00">
                 Published: Wed 23 June 2021
@@ -28,64 +60,11 @@
         </address>
 <p>In <a href="/category/blog.html">Blog</a>.</p>
 
-</footer><!-- /.post-info --><p>As I mentioned in my last post, I'm using Pelican to set up this new blog. It's not yet properly themed, it's missing all of the historical posts, and there's a lot more config I need to play with. And I need to finish the domain config.</p>
-<p>But it's up. And you know this because you're reading it.</p>
-<p>There are ton of "how I built this" pages out there, esp for static blog sites like Pelican, but I'm writing this up in case any piece of it helps someone in the future. </p>
-<h1>pyenv and Poetry</h1>
-<p>While I have 13+ years of Python experience, I've spent the last 5 years as a VP of Engineering letting my day-to-day coding chops rust. I'm aware of the latest discussions around dependency management and deployment, and I particularly know Docker (since Appsembler's main virtual labs product is container-based). But my muscle memory is still based on virtualenv and pip.</p>
-<p>So I thought for this one, I'd give <a href="https://github.com/pyenv/pyenv">pyenv</a> and <a href="https://python-poetry.org">Poetry</a> a try.</p>
-<p>I've got a new M1 Mac Mini, so first step was to get something newer than python 2.7 installed. pyenv makes that incredibly easy... after you install <a href="https://brew.sh">Homebrew</a>, of course.</p>
-<div class="highlight"><pre><span></span><code><span class="c1"># Homebrew, work your magic</span>
-$ brew update
-$ brew install pyenv
-
-<span class="c1"># Install something more modern than 2.7 (3.9.5 is lastest as of today)</span>
-$ pyenv init
-$ pyenv install <span class="m">3</span>.9.5
-$ pyenv versions
-* system <span class="o">(</span><span class="nb">set</span> by /Users/abeals/.pyenv/version<span class="o">)</span>
-  <span class="m">3</span>.9.5 
-
-<span class="c1"># Let&#39;s set 3.9.5 as the default</span>
-$ pyenv global <span class="m">3</span>.9.5
-$ pyenv versions
-  system
-* <span class="m">3</span>.9.5 <span class="o">(</span><span class="nb">set</span> by /Users/abeals/.pyenv/version<span class="o">)</span>
-</code></pre></div>
-
-<p>Then add this line to your <code>.zshrc</code> file and restart your shell:</p>
-<div class="highlight"><pre><span></span><code><span class="nb">eval</span> <span class="s2">&quot;</span><span class="k">$(</span>pyenv init -<span class="k">)</span><span class="s2">&quot;</span>
-</code></pre></div>
-
-<p>I won't write out the Poetry installation, because (a) <a href="https://python-poetry.org/docs/#installation">the docs are quite good</a>, and (b) they're likely to change in the time between my reading this and you reading it. In fact, I ended up in a weird pre-1.2.0 state where the <code>get-poetry.py</code> script told me that I was using the wrong version, and wouldn't be able to upgrade later. I uninstalled, changed the web docs from <code>1.1</code> to <code>master</code>, and ran the <code>install-poetry.py</code> installer instead. Still got the 1.2.0 "you won't be able to upgrade" error because 1.2.0 isn't officially released. </p>
-<p>In my limited usage, Poetry worked well. For Pelican, I didn't have to do any fancy dependencies, nor did I get to leverage the different dev and prod environments that Poetry offers. It would have helped me back in 2008, though.</p>
-<h3>Side note</h3>
-<p>A while back, I considered a Docker-based workflow, and may even get there soon, since I have multiple git repos involved, need to coordinate pushes, etc. It would be nice to remove the deployment workflow from my local machine if possible.</p>
-<h1>Pelican</h1>
-<p><a href="https://blog.getpelican.com">Pelican</a> is a static site generator. It's been around for a surprisingly long time (or perhaps I'm just old), so it has a good track record and solid community behind it.</p>
-<p>I chose it due to my comfort level with Python, mainly for deployment. Also helps in case I ever do get to hacking the framework or building a plugin (doubtful).</p>
-<p>It has first-class Markdown support, code syntax highlighting, and built-in Atom/RSS feeds. The plugins and <a href="https://github.com/getpelican/pelican-themes">themes</a> ecosystems are pretty solid. But it doesn't offer too many bells and whistles right out of the box -- so it was the level of simplicity that I needed.</p>
-<p>I want to focus on writing.</p>
-<h1>Github Pages</h1>
-<p>I originally planned to self-host, and I may still, but it's hard to turn down the ease of use from Github Pages. We spend much of our days in Github for work already, so I'm used to the platform.</p>
-<p>It's free, easy to use, and is well-documented. If traffic goes up or I need other functionality, I can easily move it.</p>
-<p>Pages is very, very easy. <a href="https://docs.github.com/en/pages/getting-started-with-github-pages/creating-a-github-pages-site">Set up a new repo with some options checked</a>. Clone it locally. Drop your Pelican <code>/output</code> directory contents into your local repo, push to origin, and that's it.</p>
-<h3>Weirdness</h3>
-<p>At first, the fonts didn't load. The rest of the CSS seemed to, so I assumed it was either a <code>@font-face</code> issue with Github Pages, or absolute/relative path problem. Stackoverflow searches turned up <a href="https://stackoverflow.com/questions/55339889/how-to-self-host-fonts-on-github-pages-website-fonts-not-loading">answers</a> <a href="https://stackoverflow.com/questions/35718750/adding-custom-fonts-to-github-pages">in</a> <a href="https://stackoverflow.com/questions/42008218/font-face-not-working-with-github-pages?noredirect=1&amp;lq=1">this</a> <a href="https://stackoverflow.com/questions/44172360/github-pages-font-face-not-working">vein</a>. However, the paths looked OK, and some CSS did load. Using Firefox's console, I saw 404s coming from 3 out of 6 CSS files in one directory. I confirmed that direct access of those CSS files returned 404s, even though the files were present and accessible in the repo through the normal Github UI.</p>
-<p>Then I hit on a comment that said sometimes Pages' Jekyll processing missed files in a directory starting with an underscore. I didn't have that problem -- as I mentioned, 3 of 6 files in the directory were accessible. But I thought maybe Jekyll needed a kick. So I tried adding a <code>.nojekyll</code> file to the root, which (a) would prevent that underscore issue for the future, and (b) kicked the Pages processing to re-eval the repo. Worked like a charm.</p>
-<p>Unfortunately, I don't know which one solved the problem: pushing a commit of any sort, or adding the <code>.nojekyll</code> file in particular. I'll try removing the file in an upcoming update and see what happens.</p>
-<h1>Resources / Acknowledgements:</h1>
-<ul>
-<li><a href="https://duncanleung.com/set-up-python-pyenv-virtualenv-poetry/">https://duncanleung.com/set-up-python-pyenv-virtualenv-poetry/</a></li>
-<li><a href="https://blog.jayway.com/2019/12/28/pyenv-poetry-saviours-in-the-python-chaos/">https://blog.jayway.com/2019/12/28/pyenv-poetry-saviours-in-the-python-chaos/</a></li>
-<li><a href="https://dirtyhandscoding.github.io/posts/blog-migrated-to-pelican-and-github-pages.html">https://dirtyhandscoding.github.io/posts/blog-migrated-to-pelican-and-github-pages.html</a></li>
-<li><a href="https://www.brainsorting.com/posts/create-a-blog-with-pelican/">https://www.brainsorting.com/posts/create-a-blog-with-pelican/</a></li>
-</ul>                </article>
-            </aside><!-- /#featured -->
-                <section id="content" class="body">
-                    <h1>Other articles</h1>
-                    <hr />
-                    <ol id="posts-list" class="hfeed">
+</footer><!-- /.post-info -->                <p>As I mentioned in my last post, I'm using Pelican to set up this new blog. It's not yet properly themed, it's missing all of the historical posts, and there's a lot more config I need to play with. And I need to finish the domain config.</p>
+<p>But it's up …</p>
+                <a class="readmore" href="/pelican-pyenv-poetry-and-github-pages.html">read more</a>
+                </div><!-- /.entry-content -->
+            </article></li>
 
             <li><article class="hentry">
                 <header>
