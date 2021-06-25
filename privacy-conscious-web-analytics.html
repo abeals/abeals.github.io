@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+        <meta charset="utf-8" />
+        <meta name="generator" content="Pelican" />
+        <title>Privacy-conscious web analytics</title>
+        <link rel="stylesheet" href="/theme/css/main.css" />
+        <meta name="description" content="Now that my blog's back up, I'm looking into web analytics solutions before I add more posts and share them on social media. Privacy is important..." />
+</head>
+
+<body id="index" class="home">
+        <header id="banner" class="body">
+                <h1><a href="/">Beals' Blog</a></h1>
+                <nav><ul>
+                    <li class="active"><a href="/category/blog.html">Blog</a></li>
+                </ul></nav>
+        </header><!-- /#banner -->
+<section id="content" class="body">
+  <article>
+    <header>
+      <h1 class="entry-title">
+        <a href="/privacy-conscious-web-analytics.html" rel="bookmark"
+           title="Permalink to Privacy-conscious web analytics">Privacy-conscious web analytics</a></h1>
+    </header>
+
+    <div class="entry-content">
+<footer class="post-info">
+        <abbr class="published" title="2021-06-24T20:05:00-04:00">
+                Published: Thu 24 June 2021
+        </abbr>
+
+        <address class="vcard author">
+                By                         <a class="url fn" href="/author/aaron-beals.html">Aaron Beals</a>
+        </address>
+<p>In <a href="/category/blog.html">Blog</a>.</p>
+
+</footer><!-- /.post-info -->      <p>Now that my blog's back up, I'm looking into web analytics solutions before I add more posts and share them on social media. Privacy is important to me (a subject for another post in which I rant about the evils of Alexa), and the old standard, Google Analytics, is a privacy nightmare.</p>
+<p>Luckily, there are a crop of new, privacy-conscious services out there. You have to pay for them, but that's the point -- free services are free because you're paying with your own privacy and the privacy of your visitors.</p>
+<ul>
+<li><a href="https://usefathom.com">Fathom</a> has been the darling of this space, getting a good amount of press. Their pricing is friendly if you run a number of sites, and it's fair. Unfortunately, the starting point is too high at $14/mo — it doesn't allow for low-traffic sites like mine to get started. However! They've got <a href="https://github.com/usefathom/fathom/">a self-hosted lite version</a> that I might try. However, their <a href="https://github.com/usefathom/fathom/">comparison table in their OSS repo</a> shows that the lite version uses cookies, so that's not great. Looking for a cookie-free solution.</li>
+<li><a href="https://plausible.io">Plausible</a> has a more friendly starting price point of $5-6/mo. Their 100k pageviews tier is $12/mo, on part with the others here. It's lightweight, <a href="https://github.com/plausible/analytics">open-source</a>, and I like their <a href="https://plausible.io/about">philosophy</a>.</li>
+<li><a href="https://matomo.org">Matomo</a> is <a href="https://github.com/matomo-org/matomo">open source</a> and has been around since 2007. However, it's overkill for my needs. And it's made for larger sites — the hosted version starts at $29/mo.</li>
+<li><a href="https://simpleanalytics.com">Simple Analytics</a> is $9-19/mo (annual vs yearly) and is fully-hosted. They, true to their name, have a set of core analytics and nothing else. I like their <a href="https://docs.simpleanalytics.com/what-we-collect">clear and transparent list of what they do and don't collect</a>. They aren't open source, but they <em>do</em> <a href="https://github.com/simpleanalytics/scripts">open-source their scripts</a> to let you inspect and verify that they're not doing shady client-side JS injection.</li>
+<li><a href="https://getinsights.io">Insights</a> is developer-oriented. They're in the same ballpark price-wise as the others on the list, but they have a free tier for &lt;3k monthly pageviews, which is a much nicer onramp for small sites like mine. I'm not psyched that <a href="https://getinsights.io/what-data-we-collect">they're using Google's Firebase</a>, though.</li>
+</ul>
+<h1>What I'm going to use</h1>
+<p>I'm starting with Plausible. Their approach to analytics is simple and they have a nicer starting price point. And their approach to business resonates deeply with me:</p>
+<blockquote>
+<p>We're completely independent, self-funded, bootstrapped and debt-free. We're not interested in raising funds or taking investment. We choose the subscription business model rather than surveillance capitalism. We're operating a sustainable project funded solely by the fees that our subscribers pay us. And we donate 5% of our revenue.</p>
+</blockquote>
+<h1>Credit where credit is due:</h1>
+<ul>
+<li><a href="https://geekflare.com/privacy-focused-site-analytics/">https://geekflare.com/privacy-focused-site-analytics/</a></li>
+<li><a href="https://plausible.io/vs-matomo">https://plausible.io/vs-matomo</a></li>
+<li><a href="https://www.fastcompany.com/90300072/its-time-to-ditch-google-analytics">https://www.fastcompany.com/90300072/its-time-to-ditch-google-analytics</a></li>
+</ul>
+    </div><!-- /.entry-content -->
+
+  </article>
+</section>
+        <section id="extras" class="body">
+                <div class="blogroll">
+                        <h2>links</h2>
+                        <ul>
+                            <li><a href="https://alexcviana.substack.com">Alex Viana's Newsletter</a></li>
+                            <li><a href="https://thraxil.org">Anders Pearson</a></li>
+                            <li><a href="https://www.celticsblog.com">Celtics Blog</a></li>
+                        </ul>
+                </div><!-- /.blogroll -->
+                <div class="social">
+                        <h2>social</h2>
+                        <ul>
+
+                            <li><a href="https://twitter.com/abeals">twitter</a></li>
+                            <li><a href="https://www.linkedin.com/in/aaronbeals/#">linkedin</a></li>
+                        </ul>
+                </div><!-- /.social -->
+        </section><!-- /#extras -->
+
+        <footer id="contentinfo" class="body">
+                <address id="about" class="vcard body">
+                Proudly powered by <a href="https://getpelican.com/">Pelican</a>, which takes great advantage of <a href="https://www.python.org/">Python</a>.
+                </address><!-- /#about -->
+
+                <p>The theme is by <a href="https://www.smashingmagazine.com/2009/08/designing-a-html-5-layout-from-scratch/">Smashing Magazine</a>, thanks!</p>
+        </footer><!-- /#contentinfo -->
+
+</body>
+</html>
