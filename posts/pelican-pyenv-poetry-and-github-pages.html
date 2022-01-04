@@ -44,26 +44,28 @@
 <p>While I have 13+ years of Python experience, I've spent the last 5 years as a VP of Engineering letting my day-to-day coding chops rust. I'm aware of the latest discussions around dependency management and deployment, and I particularly know Docker (since Appsembler's main virtual labs product is container-based). But my muscle memory is still based on virtualenv and pip.</p>
 <p>So I thought for this one, I'd give <a href="https://github.com/pyenv/pyenv">pyenv</a> and <a href="https://python-poetry.org">Poetry</a> a try.</p>
 <p>I've got a new M1 Mac Mini, so first step was to get something newer than python 2.7 installed. pyenv makes that incredibly easy... after you install <a href="https://brew.sh">Homebrew</a>, of course.</p>
-<div class="highlight"><pre><span></span><code><span class="c1"># Homebrew, work your magic</span>
-$ brew update
-$ brew install pyenv
+<div class="highlight"><pre><span></span><code>:::<span class="n">bash</span>
+<span class="c1"># Homebrew, work your magic</span>
+$ <span class="n">brew</span> <span class="n">update</span>
+$ <span class="n">brew</span> <span class="n">install</span> <span class="n">pyenv</span>
 
 <span class="c1"># Install something more modern than 2.7 (3.9.5 is lastest as of today)</span>
-$ pyenv init
-$ pyenv install <span class="m">3</span>.9.5
-$ pyenv versions
-* system <span class="o">(</span><span class="nb">set</span> by /Users/abeals/.pyenv/version<span class="o">)</span>
-  <span class="m">3</span>.9.5 
+$ <span class="n">pyenv</span> <span class="n">init</span>
+$ <span class="n">pyenv</span> <span class="n">install</span> <span class="mf">3.9.5</span>
+$ <span class="n">pyenv</span> <span class="n">versions</span>
+* <span class="n">system</span> (<span class="n">set</span> <span class="n">by</span> /<span class="n">Users</span><span class="o">/</span><span class="n">abeals</span>/.<span class="n">pyenv</span><span class="o">/</span><span class="nb">version</span>)
+  <span class="mf">3.9.5</span> 
 
 <span class="c1"># Let&#39;s set 3.9.5 as the default</span>
-$ pyenv global <span class="m">3</span>.9.5
-$ pyenv versions
-  system
-* <span class="m">3</span>.9.5 <span class="o">(</span><span class="nb">set</span> by /Users/abeals/.pyenv/version<span class="o">)</span>
+$ <span class="n">pyenv</span> <span class="n">global</span> <span class="mf">3.9.5</span>
+$ <span class="n">pyenv</span> <span class="n">versions</span>
+  <span class="n">system</span>
+* <span class="mf">3.9.5</span> (<span class="n">set</span> <span class="n">by</span> /<span class="n">Users</span><span class="o">/</span><span class="n">abeals</span>/.<span class="n">pyenv</span><span class="o">/</span><span class="nb">version</span>)
 </code></pre></div>
 
 <p>Then add this line to your <code>.zshrc</code> file and restart your shell:</p>
-<div class="highlight"><pre><span></span><code><span class="nb">eval</span> <span class="s2">&quot;</span><span class="k">$(</span>pyenv init -<span class="k">)</span><span class="s2">&quot;</span>
+<div class="highlight"><pre><span></span><code>:::bash
+eval &quot;$(pyenv init -)&quot;
 </code></pre></div>
 
 <p>I won't write out the Poetry installation, because (a) <a href="https://python-poetry.org/docs/#installation">the docs are quite good</a>, and (b) they're likely to change in the time between my reading this and you reading it. In fact, I ended up in a weird pre-1.2.0 state where the <code>get-poetry.py</code> script told me that I was using the wrong version, and wouldn't be able to upgrade later. I uninstalled, changed the web docs from <code>1.1</code> to <code>master</code>, and ran the <code>install-poetry.py</code> installer instead. Still got the 1.2.0 "you won't be able to upgrade" error because 1.2.0 isn't officially released. </p>
@@ -86,8 +88,9 @@ $ pyenv versions
 <h1>Current Janky Workflow</h1>
 <p>I'm writing in <a href="https://ia.net/writer">iA Writer</a>, then I have a private git repo in <a href="https://keybase.io">Keybase</a> for my source files, Pelican config, etc. </p>
 <p>Right now, I copy the files I want to publish from iA's default destination (iCloud, which was a pain in the neck to find on disk, compared to Dropbox) to the private git repo. Once the files are there, I regenerate and run the local Pelican server to test it out:</p>
-<div class="highlight"><pre><span></span><code>$ pelican ./content
-$ pelican --autoreload --listen
+<div class="highlight"><pre><span></span><code><span class="p">:::</span><span class="n">bash</span><span class="w"></span>
+<span class="o">$</span><span class="w"> </span><span class="n">pelican</span><span class="w"> </span><span class="o">./</span><span class="n">content</span><span class="w"></span>
+<span class="o">$</span><span class="w"> </span><span class="n">pelican</span><span class="w"> </span><span class="o">--</span><span class="n">autoreload</span><span class="w"> </span><span class="o">--</span><span class="n">listen</span><span class="w"></span>
 </code></pre></div>
 
 <p>If everything looks good, I copy the contents of the output directory to my local copy of my Github Pages repo, commit, and push to origin.</p>
