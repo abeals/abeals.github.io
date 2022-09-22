@@ -20,7 +20,77 @@
 
             <aside id="featured" class="body">
                 <article>
-                    <h1 class="entry-title"><a href="/posts/make-something-happen-by-making-it-wrong.html">Make something happen by making it wrong</a></h1>
+                    <h1 class="entry-title"><a href="/posts/the-valuable-experience-of-maintaining-your-own-code.html">The valuable experience of maintaining your own code</a></h1>
+<footer class="post-info">
+        <abbr class="published" title="2022-09-22T08:36:00-04:00">
+                Published: Thu 22 September 2022
+        </abbr>
+
+        <address class="vcard author">
+                By                         <a class="url fn" href="/author/aaron-beals.html">Aaron Beals</a>
+        </address>
+<p>In <a href="/category/blog.html">Blog</a>.</p>
+
+</footer><!-- /.post-info --><p>I’ve had variants of this conversation with engineers over the years, but this particular blog post was sparked by a conversation I had with a junior engineer in mid-2021.</p>
+<p>I’ll start with what I said to them:</p>
+<blockquote>
+<p>One of the things that isn’t often taught to new developers is that working with existing/aging software is hard work. A lot of what we’re taught when we’re new to something (a language, a programming model, etc) is how to get started — “green field” as it were. While that’s good when starting out fresh, it doesn’t really teach how to understand, fix, and replace pieces of an existing piece of code.</p>
+</blockquote>
+<p>I can imagine you're nodding along if you have have worked with a large, established code base for years (in the case of Appsembler, we work with <a href="https://openedx.org">the Open edX open source codebase</a>).</p>
+<h3>Out standing in your (green)field</h3>
+<p>If you’re building something new, greenfield development feels great, because you’re unencumbered by existing code, design decisions, etc. It can feel daunting to some developers, but freeing to others. </p>
+<p>If you’re doing this to replace an existing system, there well-know issues with this approach, such as <a href="https://medium.com/holes/second-system-effect-1a4a1cf76836">the Second-system effect that Brooks described</a>. </p>
+<p>One of the other issues, if you’re always allowed (or allow yourself) to start over again, is that you are always building fresh and never learning how to maintain code. You’re never learning difficult, advanced development skills like refactoring.</p>
+<p>[A side note: in doing a quick search on greenfield development, I learned about the term “<a href="https://synoptek.com/insights/it-blogs/greenfield-vs-brownfield-software-development/">brownfield development</a>”.]</p>
+<h3>Maintaining someone else’s (awful, ill-designed) code</h3>
+<p>If you’ve had to manage an existing codebase, then you learn skills like code navigation, debugging, patching, and deploying. Hopefully there was already a test suite there to make the bug fixes go more smoothly. These are all valuable skills to learn as a software developer.</p>
+<p>But in this case, you also have free rein to criticize the heck out of the existing system. I’ve seen this play out in small ways (“what were they thinking when they wrote this do-everything method?”) and much larger ways (“this entire codebase is a flaming pile of rubbish and I’m not convinced that the authors had even touched a computer prior to writing it”). </p>
+<p>It’s all a form of venting, and it’s at someone else who isn’t present. Sometimes it helps to invent a fictional former developer at whom to lob criticism. At a prior job, my colleague named this guy Randy. In jest, we blamed Randy for a lot of the ills of the system that we’d built over several years.</p>
+<h3>Maintaining your own code</h3>
+<p>Years ago, I was working on a codebase that I and a few other developers had created a few years prior. I was debugging a particularly thorny issue, and had it narrowed down to one questionable line of code. “Who the hell wrote this abomination?!” I thought, as I did a quick <code>svn blame</code> (yes, this effectively predated git) to find the culprit:</p>
+<p><code>beals 1459 ....</code></p>
+<p>(shaking fist) Me!!! </p>
+<p>If you’ve worked on a project long enough, you’ve had this happen. You’ve felt the impact of your decisions, whether individual commits or major design decisions. I’m a firm believer that these experiences make you a better developer. They help develop better instincts about when “good enough” is truly good enough, when it makes sense to refactor, and when code smells. And it <em>definitely</em> makes you better at writing easy-to-read, well-documented code (document the <em>why</em> of what you did, not the how).</p>
+<p>Toward that end, if you want to have this kind of experience, you need to work in the same codebase for a while.</p>
+<h3>Tenure and what it implies</h3>
+<p>As a hiring manager, there are some questionable “common sense rules” that are often mentioned. One of them is that a candidate staying at multiple jobs for less than a year is a red flag because it shows a potential lack of commitment, and the person might leave your business in less than a year. </p>
+<p>Let’s temporarily look past the fact that there may be other issues at play (maybe they worked for a few short-lived startups, or ended up working at multiple toxic workplaces). The issue I see for a developer is that they never stayed around long enough to maintain their own code over a longer period of time. The same can be true if a developer moves within the same org every 6 months, always working on new greenfield projects.</p>
+<p>This isn’t a reason to <strong>avoid</strong> hiring the person, but you certainly shouldn’t assume that they have the code and design-decision chops that come from having had to maintain their own code. Make sure you’re vetting them for these skills in the interview process (“tell me about a time when you got burned by a design decision you’d made over a year before”), and if they don’t have this experience, don’t hire them right into a role where those chops are required.</p>
+<h3>How do we teach the skills?</h3>
+<p>But <strong>do</strong> talk explicitly with candidates and developers on your team about this, as a key set of skills to build. Too many developers still err on the side of “I’ll just rebuild this”. </p>
+<p>Some ideas:</p>
+<ul>
+<li>Make it clear that code maintenance is an important area of skill, and build it into your <a href="https://www.swyx.io/career-ladders">engineering ladder</a> if you have one. </li>
+<li>Give junior developers the chance to develop code that they’ll have to maintain down the line, even if that code is for an internal tool and not in customer-facing production.</li>
+<li>Ensure that developers at all levels spend time fixing bugs in the codebase.</li>
+<li>Supplement practical learning with some education, like O’Reilly’s “<a href="https://www.oreilly.com/library/view/building-maintainable-software/9781491955987/">Building Maintainable Software</a>” or their <a href="https://www.oreilly.com/videos/building-maintainable-software/9781491950791/">short course</a>. Or classics like “<a href="https://www.amazon.com/Working-Effectively-Legacy-Michael-Feathers/dp/0131177052/">Working Effectively with Legacy Code</a>” and Fowler’s “<a href="https://www.amazon.com/Refactoring-Improving-Design-Existing-Code/dp/0201485672/">Refactoring</a>”.</li>
+</ul>
+<h2>Bonus content</h2>
+<p>After posting this, my colleague <a href="https://www.linkedin.com/in/shadinaif/">Shadi</a> had some additional thoughts around finding joy in maintaining code. I love what he had to say, so I’m sharing an edited version here:</p>
+<h3>Love it, don’t hate it. Yes, you can love it!</h3>
+<p>If you think of maintaining code like looking through a haystack to find the missing needle, you’ll jump out of the haystack once you find that needle and you’ll never return. You’ll hate returning. But if you think of it like you’re de-puzzling a big mechanical device, searching for the rusty gear, you’ll have a chance to do some cleanup on gears that you suspect will rust soon. And you can also take notes about the complicated parts on which you spent a longer time to understand. Or you might decide to set a future task to redesign a group of gears into more efficient ones. In software engineering, these practices are called patching, documentation, and refactoring respectively.</p>
+<h3>Make others love it!</h3>
+<p>Simply by creating a maintainable codebase, you save others time time when they maintain your code. Remember that you might be the maintainer of your own code. This is a very big topic, here are the key points:</p>
+<ul>
+<li>Use linters, write unit tests, and add docstrings</li>
+<li>Don’t be an anti-pattern. We had that era of time when programming was an “art”, and everyone’s code was unique. Now we’re in the engineering era, and we have better standards and patterns that everyone can understand</li>
+<li>Ask for code reviews. If your colleague doesn’t understand part of your code, then you must consider rewriting or documenting</li>
+<li>Manage your time. Code in rush = rusty gear parts</li>
+</ul>
+<p>[AB] Thanks to Shadi Naif, Omar Al-Ithawi, and John Baldwin for reviews and comments on this post.</p>                </article>
+            </aside><!-- /#featured -->
+                <section id="content" class="body">
+                    <h1>Other articles</h1>
+                    <hr />
+                    <ol id="posts-list" class="hfeed">
+
+            <li><article class="hentry">
+                <header>
+                    <h1><a href="/posts/make-something-happen-by-making-it-wrong.html" rel="bookmark"
+                           title="Permalink to Make something happen by making it wrong">Make something happen by making it wrong</a></h1>
+                </header>
+
+                <div class="entry-content">
 <footer class="post-info">
         <abbr class="published" title="2022-09-20T08:46:00-04:00">
                 Published: Tue 20 September 2022
@@ -31,14 +101,10 @@
         </address>
 <p>In <a href="/category/blog.html">Blog</a>.</p>
 
-</footer><!-- /.post-info --><p>Recently, one of our CSMs (Customer Success Managers) at Appsembler was trying to figure out how to get their customer a network diagram that met their security team's needs. Engineering had a few existing diagrams, but they either revealed too much or had a different purpose, and CS didn't want to waste Engineering's time. Worse, the customer had given vague, high-level requirements that weren't illuminated by further questions.</p>
-<p>So the CSM decided to make a diagram themselves, and the result was wrong. Which was exactly the right thing to do.</p>
-<p>I told them that they'd unlocked a secret management achievement. The best way to get something like this built is to build it incorrectly, and then get people to pick it apart and improve it. The first step is almost always the hardest. Ask someone else to start from scratch and they’ll either (a) delay way too long because the blank page is daunting, or (b) spend a lot of time building something that is great but not what you needed. By making the first draft, you’ve addressed both of these — you un-blanked the page, and you've given your request some boundaries in which to work.</p>                </article>
-            </aside><!-- /#featured -->
-                <section id="content" class="body">
-                    <h1>Other articles</h1>
-                    <hr />
-                    <ol id="posts-list" class="hfeed">
+</footer><!-- /.post-info -->                <p>Recently, one of our CSMs (Customer Success Managers) at Appsembler was trying to figure out how to get their customer a network diagram that met their security team's needs. Engineering had a few existing diagrams, but they either revealed too much or had a different purpose, and CS didn't want …</p>
+                <a class="readmore" href="/posts/make-something-happen-by-making-it-wrong.html">read more</a>
+                </div><!-- /.entry-content -->
+            </article></li>
 
             <li><article class="hentry">
                 <header>
@@ -221,30 +287,6 @@
 
 </footer><!-- /.post-info -->                <p>Now that my blog's back up, I'm looking into web analytics solutions before I add more posts and share them on social media. Privacy is important to me (a subject for another post in which I rant about the evils of Alexa), and the old standard, Google Analytics, is a …</p>
                 <a class="readmore" href="/posts/privacy-conscious-web-analytics.html">read more</a>
-                </div><!-- /.entry-content -->
-            </article></li>
-
-            <li><article class="hentry">
-                <header>
-                    <h1><a href="/posts/dependency-and-environment-management-in-python.html" rel="bookmark"
-                           title="Permalink to Dependency and Environment Management in Python">Dependency and Environment Management in Python</a></h1>
-                </header>
-
-                <div class="entry-content">
-<footer class="post-info">
-        <abbr class="published" title="2021-06-24T06:15:00-04:00">
-                Published: Thu 24 June 2021
-        </abbr>
-
-        <address class="vcard author">
-                By                         <a class="url fn" href="/author/aaron-beals.html">Aaron Beals</a>
-        </address>
-<p>In <a href="/category/blog.html">Blog</a>.</p>
-
-</footer><!-- /.post-info -->                <p>People have a lot of opinions about dependency and environment management in Python.</p>
-<p>Python's been having a moment recently, as more tools are coming out to address problems people have had with <code>pip</code> and <code>virtualenv</code>.</p>
-<p>I'm not going to add my own two cents. This is more of a survey …</p>
-                <a class="readmore" href="/posts/dependency-and-environment-management-in-python.html">read more</a>
                 </div><!-- /.entry-content -->
             </article></li>
                 </ol><!-- /#posts-list -->
